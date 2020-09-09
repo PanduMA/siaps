@@ -112,7 +112,7 @@
                                     action="{{url("/")}}/siswa/{{$username}}/update" 
                                     method="post" 
                                     enctype="multipart/form-data">
-                                @if(!is_null($siswa->gambar))
+                                @if(($siswa->gambar))
                                 <img 
                                     class="avatar border-white" 
                                     src="{{asset('uploads/'.$siswa->gambar.'')}}" 

@@ -26,7 +26,7 @@
                             <form method="POST" action="{{ route('register') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                    <input type="text" name="username" placeholder="NIS/NIP/Username" class="form-control effect-7" id="inputUsername" maxlength="20
+                                    <input type="text" name="username" placeholder="NIS/NIP" class="form-control effect-7" id="inputUsername" maxlength="20
                                     ">
                                     <span class="focus-border"><i></i></span>
                                     @if ($errors->has('username'))

@@ -109,7 +109,7 @@
                                                 action="/guru/{{$username}}/update"
                                                 enctype="multipart/form-data"
                                                 method="post">
-                                                @if(!is_null($guru->gambar))
+                                                @if(($guru->gambar))
                                                 <img 
                                                     class="avatar border-white" 
                                                     src="{{asset('uploads/'.$guru->gambar.'')}}" 

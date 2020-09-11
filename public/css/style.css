@@ -36,6 +36,9 @@
 .form-control:focus{
 	border-color: white;
 }
+#status option{
+	color: black;
+}
 .pwd{
 	border-right: 0px solid transparent;
 }

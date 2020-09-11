@@ -234,7 +234,7 @@ class HomeController extends Controller
         $crat = $users->created_at;
         $bergabung = date('j M Y ', strtotime($crat));
         $guru = DB::table('guru')->where('nip', $username)->get();
-        return view('guru', ['username' => $username, 'guru' => $guru,'bergabung'=>$bergabung,'gambar'=>$gambar])->with('msg', 'Update Succesfull');
+        return view('guru', ['username' => $username, 'guru' => $guru,'bergabung'=>$bergabung])->with('msg', 'Update Succesfull');
     }
     public function aspirasiguruid($username, $id)
     {

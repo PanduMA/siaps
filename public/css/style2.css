@@ -114,3 +114,6 @@ li {
 #profile-container {
     overflow: hidden;
 }
+.font-bold{
+	font-weight: bold;
+}

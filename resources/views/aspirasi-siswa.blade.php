@@ -86,8 +86,23 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
                                     <a href="{{url("/")}}/siswa/{{$username}}">
-                                        <img src="{{asset('papperdb/img/faces/profile-m.jpg')}}" class="smallphoto">
                                         @foreach($siswa as $siswa)
+                                            @if(($siswa->gambar))
+                                            <img 
+                                                class="smallphoto" 
+                                                src="{{asset('uploads/'.$siswa->gambar.'')}}" 
+                                                alt="Foto Profil"/>
+                                            @elseif($siswa->jenis_kelamin == 'Perempuan')
+                                            <img 
+                                                class="smallphoto" 
+                                                src="{{asset('uploads/profile-f.jpg')}}" 
+                                                alt="Foto Profil"/>
+                                            @else
+                                            <img 
+                                                class="smallphoto" 
+                                                src="{{asset('uploads/profile-m.jpg')}}" 
+                                                alt="Foto Profil"/>
+                                            @endif
                                         <p>{{$siswa->nama}}</p>
                                         @endforeach
                                     </a>
@@ -136,7 +151,7 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                                             <?php
 } else {
     ?>
-                                                <p class="text-center">Data Belum Ada</p>
+                                                <p class="text-center" id="empty">Data Belum Ada</p>
                                                 <?php }?>
                                             </div>
                                         </div>
@@ -168,7 +183,7 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="text" name="subjek" class="form-control ct" placeholder="Subjek">
+                                                        <input type="text" name="subjek" class="form-control ct" placeholder="Subjek" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,7 +193,7 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                                                         <textarea
                                                             class="form-control ct"
                                                             placeholder="Tulis Pesan Anda Disini"
-                                                            name="pesan"></textarea>
+                                                            name="pesan" required></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -236,17 +251,15 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                     <div class="modal-body">
                         <div class="deleteContent">
                             Apakah kamu yakin akan menghapus data aspirasi dengan subjek
-                            <span class="dname"></span>
-                            ?
-                            <span class="hidden did"></span>
+                            <span class="dname font-bold"></span>?<span class="hidden did"></span>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn actionBtn delete" data-dismiss="modal">
-                                <i class="ti-trash" id="footer_action_button"></i>
+                                {{-- <i class="ti-trash" id="footer_action_button"></i> --}}
                                 Delete
                             </button>
                             <button type="button" class="btn " data-dismiss="modal">
-                                <i class="ti-close"></i>
+                                {{-- <i class="ti-close"></i> --}}
                                 Close
                             </button>
                         </div>

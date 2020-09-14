@@ -78,14 +78,28 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{asset('papperdb/img/faces/profile-m.jpg')}}" class="smallphoto">
+                            <a href="#" {{-- class="dropdown-toggle" data-toggle="dropdown" --}}> 
                                 @foreach($guru as $guru)
+                                    @if(($guru->gambar))
+                                    <img 
+                                        class="smallphoto" 
+                                        src="{{asset('uploads/'.$guru->gambar.'')}}" 
+                                        alt="Foto Profil"/>
+                                    @elseif($guru->jenis_kelamin == 'Perempuan')
+                                    <img 
+                                        class="smallphoto" 
+                                        src="{{asset('uploads/profile-f.jpg')}}" 
+                                        alt="Foto Profil"/>
+                                    @else
+                                    <img 
+                                        class="smallphoto" 
+                                        src="{{asset('uploads/profile-m.jpg')}}" 
+                                        alt="Foto Profil"/>
+                                    @endif
                                 <p>{{$guru->nama}}</p>
-                                <b class="caret"></b>
                                 @endforeach
                             </a>
-                            <ul class="dropdown-menu">
+                            {{-- <ul class="dropdown-menu">
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-power-off"></i>
                                         Logout
@@ -94,7 +108,7 @@
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </li>
                     </ul>
 

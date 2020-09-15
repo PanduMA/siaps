@@ -160,7 +160,7 @@ class HomeController extends Controller
             DB::table('aspirasi')->insert(['nis' => $username, 'nama_siswa' => $nama, 'subjek' => $req->subjek, 'pesan' => $req->pesan, 'waktu' => $date, 'kategori' => $req->kategori]);
         }
         $aspirasi = DB::table('aspirasi')->where('nis', $username)->paginate(5);
-        return view('aspirasi-siswa', ['username' => $username, 'siswa' => $siswa, 'aspirasi' => $aspirasi])->with('pesan', 'Aspirasi berhasil ditambahkan');
+        return redirect('aspirasisiswa/'.$username)->with('pesan', 'Aspirasi berhasil ditambahkan');
     }
     public function aspirasidelete($username, $id)
     {
@@ -173,7 +173,10 @@ class HomeController extends Controller
     public function deletedata(Request $req)
     {
         aspirasi::find($req->id)->delete();
-        return response()->json();
+        $data = aspirasi::get();
+        return response()->json([
+            'jumlah' => count($data)
+        ]);
     }
 
     // GURU

@@ -42,7 +42,7 @@
                     </div>
                     <ul class="nav">
                         <li class="active">
-                            <a href="#">
+                            <a href="{{url("/")}}/aspirasisiswa/{{$username}}">
                                 <i class="ti-archive"></i>
                                 <p>Aspirasi</p>
                             </a>
@@ -123,9 +123,7 @@
                                     <div class="content">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <?php
-if (isset($aspirasi) && count($aspirasi) > 0) {     
-    ?>
+                                                <?php if (isset($aspirasi) && count($aspirasi) > 0) {  ?>
                                                 <table class="table table-hover">
                                                     @foreach($aspirasi as $aspirasis)
                                                     <tr id="item{{$aspirasis->id}}">
@@ -134,7 +132,7 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                                                             <br>{{$aspirasis->pesan}}
                                                         </td>
                                                         <td class="text-right">
-                                                            {{$aspirasis->waktu}}
+                                                            {{date_format(date_create($aspirasis->waktu),"d/m/Y H:i:s")}}
                                                             <br>
                                                             <button
                                                                 class="delete-modal btn-hapus"
@@ -148,11 +146,10 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                                                     </tr>
                                                     @endforeach
                                                 </table>
-                                            <?php
-} else {
-    ?>
-                                                <p class="text-center" id="empty">Data Belum Ada</p>
-                                                <?php }?>
+                                                <?php } else { ?>
+                                                    <p class="text-center">Data Belum Ada</p>
+                                                <?php } ?>
+                                                <p class="text-center" id="empty" style="display: none">Data Belum Ada</p>
                                             </div>
                                         </div>
                                     </div>
@@ -281,6 +278,7 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
 
     <script type='text/javascript'>
         $(document).ready(function () {
+            defaultUrl = window.location.href;
             $(document).on('click', '.delete-modal', function () {
                 $('.did').text($(this).data('id'));
                 $('.dname').html($(this).data('name'));
@@ -302,10 +300,13 @@ if (isset($aspirasi) && count($aspirasi) > 0) {
                             type: 'success',
                             timer: 4000
                         });
+                        if (data.jumlah <= 1) {
+                            $('#empty').fadeIn();
+                        }
                     }
                 });
             });
-            @if(isset($pesan))
+            @if (Session::has('pesan'))            
             $.notify({
                 message: 'Succes , Aspirasi anda berhasil ditambahkan.'
             }, {

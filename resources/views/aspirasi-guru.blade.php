@@ -39,7 +39,7 @@
                     </div>
                     <ul class="nav">
                         <li class="active">
-                            <a href="#">
+                            <a href="{{url("/")}}/aspirasiguru/{{$username}}">
                                 <i class="ti-archive"></i>
                                 <p>Aspirasi</p>
                             </a>
@@ -122,40 +122,36 @@
                                     <div class="content">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <?php
-                                        if (isset($aspirasi) && count($aspirasi) > 0) {
-                                            ?>
-                                                <table class="table table-hover">
-                                                    @foreach($aspirasi as $aspirasis)
-                                                    <tr id="item{{$aspirasis->id}}" class="pr">
-                                                        <td>
-                                                            <a href="#">{{$aspirasis->subjek}}</a>
-                                                            <br>{{$aspirasis->pesan}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$aspirasis->waktu}}
-                                                            <br>
-                                                            <button
-                                                                class="delete-modal btn-hapus"
-                                                                data-id="{{$aspirasis->id}}"
-                                                                data-name="{{$aspirasis->subjek}}"
-                                                                data-toggle="modal"
-                                                                data-target="#myModal">
-                                                                <i class="ti-trash"></i>
-                                                            </button>
-                                                            <a href="/aspirasiguru/{{$username}}/{{$aspirasis->id}}">
-                                                                <i class="ti-eye"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </table>
-                                            <?php
-                                    }
-                                    else{
-                                        ?>
-                                                <p class="text-center">Data Tidak Ada</p>
+                                                <?php if (isset($aspirasi) && count($aspirasi) > 0) { ?>
+                                                    <table class="table table-hover">
+                                                        @foreach($aspirasi as $aspirasis)
+                                                        <tr id="item{{$aspirasis->id}}" class="pr">
+                                                            <td>
+                                                                <a href="#">{{$aspirasis->subjek}}</a>
+                                                                <br>{{$aspirasis->pesan}}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                {{date_format(date_create($aspirasis->waktu),"d/m/Y H:i:s")}}
+                                                                <br>
+                                                                <button
+                                                                    class="delete-modal btn-hapus"
+                                                                    data-id="{{$aspirasis->id}}"
+                                                                    data-name="{{$aspirasis->subjek}}"
+                                                                    data-toggle="modal"
+                                                                    data-target="#myModal">
+                                                                    <i class="ti-trash"></i>
+                                                                </button>
+                                                                <a href="/aspirasiguru/{{$username}}/{{$aspirasis->id}}">
+                                                                    <i class="ti-eye"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </table>
+                                                <?php } else{ ?>
+                                                    <p class="text-center">Data Belum Ada</p>
                                                 <?php } ?>
+                                                <p class="text-center" id="empty" style="display: none">Data Belum Ada</p>
                                             </div>
                                         </div>
                                     </div>
@@ -202,11 +198,11 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn actionBtn delete" data-dismiss="modal">
-                                <i class="ti-trash" id="footer_action_button"></i>
+                                {{-- <i class="ti-trash" id="footer_action_button"></i> --}}
                                 Delete
                             </button>
                             <button type="button" class="btn " data-dismiss="modal">
-                                <i class="ti-close"></i>
+                                {{-- <i class="ti-close"></i> --}}
                                 Close
                             </button>
                         </div>
@@ -250,6 +246,9 @@
                             type: 'success',
                             timer: 4000
                         });
+                        if (data.jumlah <= 1) {
+                            $('#empty').fadeIn();
+                        }
                     }
                 });
             });
